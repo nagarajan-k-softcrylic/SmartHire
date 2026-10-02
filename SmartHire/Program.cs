@@ -42,7 +42,7 @@ builder.Services.Configure<AzureAiSearchOptions>(builder.Configuration.GetSectio
 builder.Services.Configure<AzureOpenAiOptions>(builder.Configuration.GetSection(AzureOpenAiOptions.SectionName));
 
 // ---------- Authentication (AuthBridge OIDC SSO) ----------
-builder.Services.ConfigureAuthServices(builder.Configuration);
+builder.Services.ConfigureAuthServices(builder.Configuration, builder.Environment.IsDevelopment());
 
 // ---------- Internal SCIM sync endpoint auth (ScimProvisioning.Api -> SmartHire) ----------
 builder.Services

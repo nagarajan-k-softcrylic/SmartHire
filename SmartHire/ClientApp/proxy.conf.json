@@ -5,6 +5,18 @@
     "changeOrigin": true,
     "logLevel": "debug"
   },
+  "/signin-oidc": {
+    "target": "https://localhost:7400",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/signout-callback-oidc": {
+    "target": "https://localhost:7400",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
   "/api/**": {
     "target": "https://localhost:7400",
     "secure": false,
