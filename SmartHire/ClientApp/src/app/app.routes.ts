@@ -8,9 +8,11 @@ import { Synchronization } from './pages/synchronization/synchronization';
 import { Resumes } from './pages/resumes/resumes';
 import { AuditLogs } from './pages/audit-logs/audit-logs';
 import { AccessDenied } from './pages/access-denied/access-denied';
+import { Login } from './pages/login/login';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+  { path: 'login', component: Login },
   { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
   { path: 'screening', component: Screening, canActivate: [authGuard] },
   { path: 'candidates', component: Candidates, canActivate: [authGuard] },

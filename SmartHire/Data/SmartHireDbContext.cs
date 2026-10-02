@@ -27,7 +27,13 @@ public class SmartHireDbContext : DbContext
 
         modelBuilder.Entity<User>()
             .HasIndex(u => u.SubjectId)
-            .IsUnique();
+            .IsUnique()
+            .HasFilter("[SubjectId] IS NOT NULL");
+
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.Username)
+            .IsUnique()
+            .HasFilter("[Username] IS NOT NULL");
 
         modelBuilder.Entity<Application>()
             .HasIndex(a => a.Code)

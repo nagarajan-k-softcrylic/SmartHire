@@ -1,0 +1,19 @@
+{
+  "/auth/**": {
+    "target": "https://localhost:7400",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/**": {
+    "target": "https://localhost:7400",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/health": {
+    "target": "https://localhost:7400",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

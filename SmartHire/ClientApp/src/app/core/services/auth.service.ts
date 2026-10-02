@@ -26,8 +26,25 @@ export class AuthService {
     return this.currentUser$;
   }
 
-  login(returnUrl: string = '/'): void {
+  /** Redirects to AuthBridge OIDC SSO challenge (backend). */
+  ssoLogin(returnUrl: string = '/'): void {
     window.location.href = `/auth/login?returnUrl=${encodeURIComponent(returnUrl)}`;
+  }
+
+  /** Legacy alias kept for backward compatibility with existing callers. */
+  login(returnUrl: string = '/'): void {
+    this.ssoLogin(returnUrl);
+  }
+
+  /** Registers a new local (username/password) account. */
+  register(payload: { username: string; email: string; password: string }): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>('/auth/register', payload, { withCredentials: true });
+  }
+
+  /** Authenticates a local account and starts a cookie session. */
+  localLogin(payload: { username: string; password: string }): Observable<{ message: string }> {
+    this.currentUser$ = undefined;
+    return this.http.post<{ message: string }>('/auth/local-login', payload, { withCredentials: true });
   }
 
   logout(): void {

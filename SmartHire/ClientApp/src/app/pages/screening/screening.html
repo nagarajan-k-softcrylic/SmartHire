@@ -1,1 +1,147 @@
-<p>screening works!</p>
+<div class="studio">
+  <!-- Sidebar -->
+  <aside class="studio-sidebar">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2l2.2 6.8H21l-5.6 4.1 2.1 6.9L12 15.8 6.5 19.8l2.1-6.9L3 8.8h6.8L12 2z" fill="currentColor" />
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">SmartHire AI</span>
+        <span class="brand-tag">STUDIO EDITION</span>
+      </div>
+    </div>
+
+    <button type="button" class="new-workspace-btn">
+      <span class="plus">+</span> New Workspace
+    </button>
+
+    <div class="sidebar-section">
+      <label class="sidebar-label">AI PERSONA</label>
+      <button type="button" class="persona-select">
+        <span class="persona-dot">⚡</span>
+        <span>Default (General Assistant)</span>
+        <span class="chevron">⌄</span>
+      </button>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search chats..." />
+      </div>
+    </div>
+
+    <div class="sidebar-section chat-history-section">
+      <label class="sidebar-label">CHAT HISTORY</label>
+      <div class="chat-history-list">
+        @for (item of chatHistory(); track item.id) {
+          <div class="chat-history-item">{{ item.title }}</div>
+        } @empty {
+          <div class="chat-history-empty">No conversations yet</div>
+        }
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <button type="button" class="footer-link">
+        <span class="footer-icon">⭳</span> Export Conversation
+      </button>
+      <button type="button" class="footer-link">
+        <span class="footer-icon">☀</span> Light Mode
+      </button>
+      <button type="button" class="footer-link">
+        <span class="footer-icon">⚙</span> Settings &amp; API Key
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <section class="studio-main">
+    <header class="studio-topbar">
+      <h1>SmartHire Intelligence Workspace</h1>
+      <button type="button" class="web-grounding-btn">
+        <span class="search-icon">🔍</span> Web Grounding
+      </button>
+    </header>
+
+    <div class="studio-body">
+      <div class="welcome-wrap">
+        <div class="welcome-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l2.2 6.8H21l-5.6 4.1 2.1 6.9L12 15.8 6.5 19.8l2.1-6.9L3 8.8h6.8L12 2z" fill="currentColor" />
+          </svg>
+        </div>
+        <h2 class="welcome-title">Welcome to <span>SmartHire AI Studio</span></h2>
+        <p class="welcome-subtitle">
+          An advanced AI workspace for resume screening, candidate ranking, and
+          explainable match insights powered by Azure OpenAI and RAG.
+        </p>
+
+        <div class="feature-grid">
+          @for (card of featureCards; track card.title) {
+            <div class="feature-card">
+              <div class="feature-icon">
+                @switch (card.icon) {
+                  @case ('dashboard') {
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="3" y="3" width="7" height="7" rx="1.5" fill="currentColor" />
+                      <rect x="14" y="3" width="7" height="7" rx="1.5" fill="currentColor" opacity="0.6" />
+                      <rect x="3" y="14" width="7" height="7" rx="1.5" fill="currentColor" opacity="0.6" />
+                      <rect x="14" y="14" width="7" height="7" rx="1.5" fill="currentColor" />
+                    </svg>
+                  }
+                  @case ('search') {
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="2" />
+                      <line x1="15.5" y1="15.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                  }
+                  @case ('candidate') {
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="8" r="3.5" fill="currentColor" />
+                      <path d="M4 20c0-3.9 3.6-7 8-7s8 3.1 8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                  }
+                  @case ('report') {
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2" />
+                      <path d="M8 16v-4M12 16V8m4 8v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                  }
+                }
+              </div>
+              <div class="feature-text">
+                <span class="feature-title">{{ card.title }}</span>
+                <span class="feature-description">{{ card.description }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <footer class="studio-composer">
+      <div class="composer-box">
+        <input
+          type="text"
+          [(ngModel)]="messageText"
+          (keyup.enter)="sendMessage()"
+          placeholder="Message SmartHire or type /screen [job-id]..."
+        />
+        <div class="composer-actions">
+          <div class="composer-tools">
+            <button type="button" class="tool-btn" title="Attach">📎</button>
+            <button type="button" class="tool-btn" title="Image">🎨</button>
+            <button type="button" class="tool-btn" title="Voice">🎤</button>
+          </div>
+          <button type="button" class="send-btn" (click)="sendMessage()" title="Send">↑</button>
+        </div>
+      </div>
+      <p class="composer-disclaimer">
+        SmartHire AI Studio uses Azure OpenAI models. Verify generated responses.
+      </p>
+    </footer>
+  </section>
+</div>

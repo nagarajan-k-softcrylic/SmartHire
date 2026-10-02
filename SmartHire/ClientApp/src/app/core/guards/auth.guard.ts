@@ -1,11 +1,11 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { map } from 'rxjs';
+import { catchError, map, of } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 /**
  * Route guard enforcing claim-based authorization (app_access = RESUME_AI).
- * - Not authenticated -> redirect to /auth/login (AuthBridge OIDC challenge).
+ * - Not authenticated -> redirect to the local /login page (username/password or SSO).
  * - Authenticated but missing claim -> redirect to /access-denied.
  */
 export const authGuard: CanActivateFn = (_route, state) => {
@@ -15,8 +15,7 @@ export const authGuard: CanActivateFn = (_route, state) => {
   return authService.getCurrentUser().pipe(
     map((user) => {
       if (!user.isAuthenticated) {
-        window.location.href = `/auth/login?returnUrl=${encodeURIComponent(state.url)}`;
-        return false;
+        return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } });
       }
 
       if (!user.isAuthorized) {
@@ -24,6 +23,7 @@ export const authGuard: CanActivateFn = (_route, state) => {
       }
 
       return true;
-    })
+    }),
+    catchError(() => of(router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })))
   );
 };

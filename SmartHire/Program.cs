@@ -63,7 +63,7 @@ builder.Services.AddHealthChecks()
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AngularDevClient", policy =>
-        policy.WithOrigins("https://localhost:4200")
+        policy.WithOrigins("https://localhost:7399")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials());
