@@ -1,0 +1,32 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+## Angular / Node
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+## Logs
+*.log
+build.log
+
+## Environment
+*.env
+appsettings.Development.json
+appsettings.Local.json
+
+## OS / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+## Build output
+out/
