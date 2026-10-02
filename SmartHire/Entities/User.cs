@@ -10,6 +10,9 @@ public class User
     public string Email { get; set; } = string.Empty;
     public string DisplayName { get; set; } = string.Empty;
 
+    /// <summary>External id from ScimProvisioning.Api, set when this user was created/synced via SCIM.</summary>
+    public string? ScimExternalId { get; set; }
+
     /// <summary>Unique login name for local (non-SSO) username/password accounts.</summary>
     public string? Username { get; set; }
 

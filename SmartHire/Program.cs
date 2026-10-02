@@ -10,6 +10,7 @@ using SmartHire.Infrastructure.BackgroundServices;
 using SmartHire.Infrastructure.BlobStorage;
 using SmartHire.Infrastructure.OpenAi;
 using SmartHire.Infrastructure.Options;
+using SmartHire.Infrastructure.ScimSync;
 using SmartHire.Infrastructure.Search;
 using SmartHire.Middleware;
 using SmartHire.Repositories;
@@ -42,6 +43,13 @@ builder.Services.Configure<AzureOpenAiOptions>(builder.Configuration.GetSection(
 
 // ---------- Authentication (AuthBridge OIDC SSO) ----------
 builder.Services.ConfigureAuthServices(builder.Configuration);
+
+// ---------- Internal SCIM sync endpoint auth (ScimProvisioning.Api -> SmartHire) ----------
+builder.Services
+    .AddAuthentication()
+    .AddScheme<ScimSyncApiKeyAuthenticationOptions, ScimSyncApiKeyAuthenticationHandler>(
+        ScimSyncApiKeyAuthenticationOptions.SchemeName,
+        options => options.ApiKey = builder.Configuration["ScimSync:ApiKey"] ?? string.Empty);
 
 // ---------- Application services ----------
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
